@@ -3,24 +3,45 @@
  * Use this file to override Materialize files so you can update
  * the core Materialize files in the future
  *
- * Made By MaterializeCSS.com
  */
+ @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+ body {
+  font-family: 'Karla', sans-serif;
+ }
+
+ .text-logo {
+  font-family: 'Satisfy', cursive;
+  font-size: 40px;
+ }
 
 .icon-block {
-  padding: 0 15px;
+  padding: 0 5px;
 }
+
 .icon-block .material-icons {
-	font-size: inherit;
+  font-size: inherit;
+}
+
+
+/* Index */
+.logoImg {
+  margin-top: -1.2em;
+  margin-left: -2.2em;
+  height: 4.4em;
+  filter: invert(100%);
 }
 
 .text-shoes {
-  text-shadow: -3px 5px 10px rgba(0,0,0,0.73);
+  text-shadow: -3px 5px 10px rgba(0, 0, 0, 0.73);
 }
 
-@media screen and (max-width: 993px){
-  .img-shoes {
-    box-sizing: border-box;
-    display: block;
-    background: url(../assets/img/air.png);
-  }
+.valign-wrapper {
+  height: 80vh;
+  
+}
+
+.imgshoe {
+  width: 10px;
 }
