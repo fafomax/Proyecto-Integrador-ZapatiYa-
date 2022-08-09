@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     constrainWidth: false,
     constrainHeit: false,
     closeOnClick: false,
+    inDuration: 700,
+    outDuration: 900,
   });
 });
 
