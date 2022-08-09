@@ -5,7 +5,7 @@ export const zapatillas = [
     modelo: "Air",
     color: "Negro",
     precio: "55000",
-    img: "/src/assets/img/shoes/air.png",
+    img: "./assets/img/shoes/air.png",
   },
   {
     id:"2",
@@ -13,7 +13,7 @@ export const zapatillas = [
     modelo: "Blazer",
     color: "Blanco",
     precio: "47000",
-    img: "/src/assets/img/shoes/blazer.png",
+    img: "./assets/img/shoes/blazer.png",
   },
   {
     id:"3",
@@ -21,7 +21,7 @@ export const zapatillas = [
     modelo: "Crater",
     color: "Negro",
     precio: "38000",
-    img: "/src/assets/img/shoes/crater.png",
+    img: "./assets/img/shoes/crater.png",
   },
   {
     id:"4",
@@ -29,7 +29,7 @@ export const zapatillas = [
     modelo: "Hippie",
     color: "Blanco",
     precio: "12000",
-    img: "/src/assets/img/shoes/hippie.png",
+    img: "./assets/img/shoes/hippie.png",
   },
   {
     id:"5",
@@ -37,6 +37,6 @@ export const zapatillas = [
     modelo: "Jordan",
     color: "Blanco",
     precio: "70000",
-    img: "/src/assets/img/shoes/jordan.png",
+    img: "./assets/img/shoes/jordan.png",
   },
 ];

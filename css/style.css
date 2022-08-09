@@ -25,6 +25,24 @@
 }
 
 
+
+
+.btnSearch {
+  position: absolute;
+  box-shadow: inset 0px 3px 11px 0px #cf866c;
+  background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+  background-color: #d0451b;
+  border-radius: 6px;
+  border: 1px solid #942911;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 8px 24px;
+  text-decoration: none;
+  text-shadow: 4px 4px 5px #854629;
+}
+
 /* Index */
 .logoImg {
   margin-top: -1.2em;
@@ -44,4 +62,61 @@
 
 .imgshoe {
   width: 10px;
+}
+
+
+
+
+.main {
+  gap: 3rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem 1rem 2rem;
+  max-width: 940px;
+  margin: auto;
+}
+
+.error {
+  background-color: var(--navBG);
+  text-align: center;
+  padding: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  max-width: 400px;
+  margin: 0 auto;
+  color: white;
+  border-radius: 10px;
+}
+
+.card {
+  font-family: "Open Sans", sans-serif;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1.5rem;
+  column-gap: 2rem;
+}
+
+.result-container {
+  width: 320px;
+  padding: 1rem;
+  margin: auto;
+  border-radius: 10px;
+  text-align: center;
+  height: 400px;
+  background-image: purple;
+  box-shadow: 0px 10px 37px 8px rgba(0, 0, 0, 0.4);
+}
+
+.result-container h2 {
+  font-family: "Ubuntu", sans-serif;
+}
+
+.result-container img {
+  border-radius: 8px;
+  max-width: 300px;
+  max-height: 200px;
 }

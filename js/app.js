@@ -1,11 +1,13 @@
 import { zapatillas } from "./db.js";
-
+const btnInput = document.querySelector(".btnInput");
 const result = document.getElementById("productos");
+const nameInput = document.querySelector(".nameInput");
+const resultSearch = document.querySelector(".card");
 
 window.addEventListener("DOMContentLoaded", () => {
   localStorage.setItem("zapatillas", JSON.stringify(zapatillas));
   showZapatillas();
-  /* btnInput.addEventListener("click", searchZapatilla); */
+  btnInput.addEventListener("click", searchZapatilla);
 });
 
 const showZapatillas = () => {
@@ -14,10 +16,10 @@ const showZapatillas = () => {
   zapatillas.forEach((zapatilla) => {
     const { id, marca, modelo, color, precio, img } = zapatilla;
     console.log(zapatilla);
-    const zapatillaDiv = document.createElement("form");
-    zapatillaDiv.classList.add("result-container");
+    const zapaDiv = document.createElement("form");
+    zapaDiv.classList.add("result-container");
 
-    zapatillaDiv.innerHTML = `
+    zapaDiv.innerHTML = `
                             <div class="card-image">
                             <img class="imgshoe" src="${img}">
                             <h2 class="card-title">${marca}</h2>
@@ -27,6 +29,54 @@ const showZapatillas = () => {
                             <p>Precio: $${precio}</p>
                         </div>
                                 `;
-    result.appendChild(zapatillaDiv);
+    resultSearch.appendChild(zapaDiv);
   });
+};
+
+const searchZapatilla = () => {
+  const zapatillaName = zapatillas.find(
+    (zapatilla) => zapatilla.modelo.toUpperCase() === nameInput.value.toUpperCase()
+  );
+
+  if (nameInput.value == "") {
+    cleanError();
+    errorMessage("Debe ingresar el nombre de la zapatilla");
+    return;
+  } else if (zapatillaName == undefined) {
+    cleanError();
+    errorMessage("No se encontro la zapatilla. Intenta con otra");
+    return;
+  }
+  showSelected(zapatillaName);
+};
+
+
+const showSelected = (zapatillaName) => {
+  cleanHTML();
+  const { img, marca, modelo, precio } = zapatillaName;
+  const zapaDiv = document.createElement("div");
+  zapaDiv.classList.add("result-container");
+
+  
+
+  setTimeout(() => {
+    cleanHTML();
+    
+    zapaDiv.classList.add("result-container");
+    zapaDiv.innerHTML = `
+                    <h2>${marca}</h2>
+                    <p>Ingredientes: ${modelo}</p>
+                    <p>Precio: $${precio}</p>
+                    <img src='${img}'>
+                    `;
+    resultSearch.appendChild(zapaDiv);
+  }, 2500);
+};
+
+
+
+const cleanHTML = () => {
+  while (resultSearch.firstChild) {
+    resultSearch.removeChild(resultSearch.firstChild);
+  }
 };
