@@ -1,82 +1,97 @@
-import { zapatillas } from "./db.js";
-const btnInput = document.querySelector(".btnInput");
-const result = document.getElementById("productos");
-const nameInput = document.querySelector(".nameInput");
-const resultSearch = document.querySelector(".card");
+const cards = document.getElementById("cards");
+const items = document.getElementById("items");
+const footer = document.getElementById("footer");
+const templateCard = document.getElementById("template-card").content;
+const templateFooter = document.getElementById("template-footer").content;
+const templateCarrito = document.getElementById("template-carrito").content;
+const fragment = document.createDocumentFragment();
+let carrito = {};
 
-window.addEventListener("DOMContentLoaded", () => {
-  localStorage.setItem("zapatillas", JSON.stringify(zapatillas));
-  showZapatillas();
-  btnInput.addEventListener("click", searchZapatilla);
+document.addEventListener("DOMContentLoaded", () => {
+  fetchData();
 });
 
-const showZapatillas = () => {
-  let zapatillaFromLocal = JSON.parse(localStorage.getItem("zapatillas"));
+cards.addEventListener("click", (e) => {
+  addCarrito(e);
+});
 
-  zapatillas.forEach((zapatilla) => {
-    const { id, marca, modelo, color, precio, img } = zapatilla;
-    console.log(zapatilla);
-    const zapaDiv = document.createElement("form");
-    zapaDiv.classList.add("result-container");
+const fetchData = async () => {
+  try {
+    const res = await fetch("js/api.json");
+    const data = await res.json();
+    /* console.log(data); */
+    pintarCards(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-    zapaDiv.innerHTML = `
-                            <div class="card-image">
-                            <img class="imgshoe" src="${img}">
-                            <h2 class="card-title">${marca}</h2>
-                        </div>
-                        <div class="card-content">
-                            <p>modelo: ${modelo}</p>
-                            <p>Precio: $${precio}</p>
-                        </div>
-                                `;
-    resultSearch.appendChild(zapaDiv);
+const pintarCards = (data) => {
+  /* console.log(data); */
+  data.forEach((producto) => {
+    /* console.log(producto); */
+    templateCard.querySelector("h4").textContent = producto.marca;
+    templateCard.querySelector("h5").textContent = producto.modelo;
+    templateCard.querySelector("p").textContent = producto.precio;
+    templateCard.querySelector("img").setAttribute("src", producto.img);
+    templateCard.querySelector(".btn-add").dataset.id = producto.id;
+
+    const clone = templateCard.cloneNode(true);
+    fragment.appendChild(clone);
   });
+  cards.appendChild(fragment);
 };
 
-const searchZapatilla = () => {
-  const zapatillaName = zapatillas.find(
-    (zapatilla) => zapatilla.modelo.toUpperCase() === nameInput.value.toUpperCase()
-  );
-
-  if (nameInput.value == "") {
-    cleanError();
-    errorMessage("Debe ingresar el nombre de la zapatilla");
-    return;
-  } else if (zapatillaName == undefined) {
-    cleanError();
-    errorMessage("No se encontro la zapatilla. Intenta con otra");
-    return;
+const addCarrito = (e) => {
+  /* console.log(e.target);
+  console.log(e.target.classList.contains('btn-small')); */
+  if (e.target.classList.contains("btn-add")) {
+    setCarrito(e.target.parentElement);
   }
-  showSelected(zapatillaName);
+  e.stopPropagation();
 };
 
+const setCarrito = (objeto) => {
+  /* console.log(objeto); */
+  const producto = {
+    id: objeto.querySelector(".btn-add").dataset.id,
+    marca: objeto.querySelector("h4").textContent,
+    precio: objeto.querySelector("p").textContent,
+    cantidad: 1,
+  };
+  if (carrito.hasOwnProperty(producto.id)) {
+    producto.cantidad = carrito[producto.id].cantidad + 1;
+  }
 
-const showSelected = (zapatillaName) => {
-  cleanHTML();
-  const { img, marca, modelo, precio } = zapatillaName;
-  const zapaDiv = document.createElement("div");
-  zapaDiv.classList.add("result-container");
+  carrito[producto.id] = { ...producto };
+  pintarCarrito();
+};
 
+const pintarCarrito = () => {
+  /* console.log(carrito); */
+  items.innerHTML = ''
+  Object.values(carrito).forEach(producto => {
+    templateCarrito.querySelector('th').textContent = producto.id
+    templateCarrito.querySelectorAll('td')[0].textContent = producto.marca
+    templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
+    templateCarrito.querySelector('.btn-info').dataset.id = producto.id
+    templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
+    templateCarrito.querySelector('span').textContent = producto.cantidad * producto.precio
+
+    const clone = templateCarrito.cloneNode(true)
+    fragment.appendChild(clone)
+  })
+  items.appendChild(fragment)
   
+  pintarFooter()
 
-  setTimeout(() => {
-    cleanHTML();
+};
+
+const pintarFooter = () => {
+  footer.innerHTML = ''
+  if(Object.keys(carrito).length === 0) {
+    footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío - Añada Productos!</th>`   
     
-    zapaDiv.classList.add("result-container");
-    zapaDiv.innerHTML = `
-                    <h2>${marca}</h2>
-                    <p>Ingredientes: ${modelo}</p>
-                    <p>Precio: $${precio}</p>
-                    <img src='${img}'>
-                    `;
-    resultSearch.appendChild(zapaDiv);
-  }, 2500);
-};
-
-
-
-const cleanHTML = () => {
-  while (resultSearch.firstChild) {
-    resultSearch.removeChild(resultSearch.firstChild);
   }
-};
+  /* const nCantidad = */
+}

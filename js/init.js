@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   //NavBar Menu
   var elems = document.querySelectorAll(".sidenav");
   var instances = M.Sidenav.init(elems);
-
   //Slider
 
   var elems = document.querySelectorAll(".slider");
@@ -13,3 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
     interval: 5000,
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  var elems = document.querySelectorAll('.dropdown-trigger');
+  var instances = M.Dropdown.init(elems, {
+    alignment: 'left',
+    hover: true,
+    constrainWidth: false,
+    constrainHeit: false,
+  });
+});
+
